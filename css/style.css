@@ -1,0 +1,79 @@
+/* Reset and General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f8f8f8;
+    color: #333;
+    padding: 20px;
+}
+
+/* Funky Animated Title */
+.bakery-title {
+    font-size: 50px;
+    font-weight: bold;
+    color: #d2691e;
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+    animation: funkyMove 2s infinite alternate;
+}
+
+/* Title Animation (Bouncing Effect) */
+@keyframes funkyMove {
+    0% { transform: scale(1); color: #d2691e; }
+    50% { transform: scale(1.1); color: #ff5733; }
+    100% { transform: scale(1); color: #d2691e; }
+}
+
+/* Working Hours Styling */
+.working-hours {
+    font-size: 18px;
+    color: #333;
+    background-color: #ffe0b2;
+    padding: 10px;
+    border-radius: 5px;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+/* Navigation Buttons (Bigger & Funkier) */
+.menu-selection {
+    margin: 20px 0;
+}
+
+.menu-btn {
+    display: inline-block;
+    margin: 10px;
+    padding: 20px 40px;
+    background: linear-gradient(45deg, #ff5733, #d2691e);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 22px;
+    font-weight: bold;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Funky Hover Effect on Buttons */
+.menu-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Image Styling (Smaller to Give Space for Buttons) */
+.random-images img {
+    width: 25%;
+    margin: 10px;
+    border-radius: 10px;
+}
+
+/* Footer */
+footer {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #ffcc80;
+}
