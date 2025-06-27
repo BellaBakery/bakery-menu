@@ -53,26 +53,37 @@ header { margin-bottom: 25px; }
 
 .working-hours { font-size: clamp(1rem, 3vw, 1.2rem); color: var(--light-cream); background-color: var(--dark-brown); padding: 10px 20px; border-radius: 8px; display: inline-block; font-weight: 700; box-shadow: 0 4px 8px var(--shadow-color); }
 
+
 /* --- Menu Buttons Section (DEFINITIVE MOBILE FIX) --- */
 .menu-selection {
     margin: 40px 0;
     display: flex;
-    /* THIS IS THE FIX: Default state is now the stacked mobile view */
+    /* Mobile-first: Default state is the stacked mobile view */
     flex-direction: column;
     align-items: center;
-    gap: 20px; /* This is now the vertical gap for mobile */
+    gap: 20px;
 }
 .menu-btn {
-    padding: 20px 40px; background-color: var(--dark-brown);
+    display: flex; /* Use flexbox for better alignment of text and emoji */
+    align-items: center;
+    justify-content: center;
+    
+    /* Sizing Fix */
+    width: 90%;
+    max-width: 450px;
+    padding: 18px 15px; /* EDITED: Reduced horizontal padding */
+    font-size: clamp(1rem, 4vw, 1.2rem); /* EDITED: Adjusted font size range */
+    
+    /* THE KEY FIX: Prevents ugly text wrapping */
+    white-space: nowrap; 
+
+    /* Other styles */
+    background-color: var(--dark-brown);
     color: var(--light-cream); text-decoration: none; border-radius: 12px;
-    font-size: clamp(1.1rem, 4vw, 1.4rem); font-weight: 700;
+    font-weight: 700;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border: 2px solid var(--dark-brown);
     box-shadow: 0 5px 15px var(--shadow-color);
-    /* THIS IS THE FIX: Buttons are wide by default for the mobile view */
-    width: 90%;
-    max-width: 450px;
-    text-align: center;
 }
 .menu-btn:hover { transform: translateY(-5px); box-shadow: 0 8px 25px var(--shadow-color), 0 0 15px var(--ember-glow); }
 .menu-btn:active { transform: translateY(0px); }
@@ -95,14 +106,12 @@ footer { margin-top: 40px; padding: 20px; border-top: 2px solid var(--medium-bro
 /* This rule ONLY applies to screens wider than 600px */
 @media (min-width: 600px) {
     .menu-selection {
-        /* On larger screens, they go side-by-side */
         flex-direction: row;
         justify-content: center;
-        gap: 25px; /* Horizontal gap */
+        gap: 25px;
     }
-
     .menu-btn {
-        /* On larger screens, the width is determined by its content */
-        width: auto;
+        width: auto; /* On desktop, let the content define the width */
+        padding: 20px 40px; /* Restore larger padding for desktop */
     }
 }
