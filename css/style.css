@@ -1,111 +1,166 @@
+/* --- THEME OVERHAUL: Colors from your new logo --- */
+:root {
+    --bg-color: #eaddc2; /* Parchment from logo */
+    --dark-brown: #3d2b1f; /* Dark brown from logo text/arch */
+    --medium-brown: #a57c52; /* Lighter brown for accents */
+    --light-cream: #f8f1e6; /* Cream color for text */
+    --shadow-color: rgba(61, 43, 31, 0.2);
+}
+
 /* Reset & General Styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    text-align: center;
-    font-family: "Poppins", sans-serif;
 }
 
-/* Bakery-Themed Background */
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    background-color: #fdf3e7; /* Warm cream color */
-    color: #5a3825; /* Rich brown text */
-    padding: 20px;
-    background-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png'); /* Light wood texture */
+    background-color: var(--bg-color);
+    color: var(--dark-brown);
+    font-family: 'Cairo', sans-serif;
+    text-align: center;
+    background-image: url('https://www.transparenttextures.com/patterns/old-paper.png'); /* A more fitting texture */
+    overflow-x: hidden;
 }
 
-/* Header Styling */
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 15px; /* More padding on sides for mobile */
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* --- Preloader (Themed) --- */
+#preloader {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: var(--bg-color);
+    z-index: 9999;
+    display: flex; justify-content: center; align-items: center;
+    transition: opacity 0.5s ease;
+}
+.spinner {
+    border: 8px solid var(--medium-brown); border-top: 8px solid var(--dark-brown);
+    border-radius: 50%; width: 60px; height: 60px;
+    animation: spin 1s linear infinite;
+}
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+/* --- EDITED: Logo Container --- */
+.logo-container {
+    padding: 10px 0 20px;
+}
+.logo-container img {
+    max-width: 300px;
+    width: 80%; /* Scales nicely on mobile */
+    height: auto;
+    border-radius: 8px; /* Optional: slightly rounded corners */
+}
+
+/* Header Styling (Themed) */
 header {
-    background-color: #ffcc80;
-    padding: 20px;
-    font-size: 28px;
-    font-weight: bold;
-    border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: transparent; /* No background needed, blends with page */
+    padding: 0;
+    box-shadow: none;
+    margin-bottom: 25px;
 }
 
-/* Funky Animated Title */
 .bakery-title {
-    font-size: 50px;
-    font-weight: bold;
-    color: #d2691e;
-    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
-    animation: funkyMove 2s infinite alternate;
+    font-weight: 900; /* Bolder to match logo font style */
+    font-size: clamp(2.8rem, 10vw, 4rem); /* Responsive font size */
+    color: var(--dark-brown);
+    text-shadow: 2px 2px 4px var(--shadow-color);
+    line-height: 1.2;
+    margin-bottom: 10px;
 }
 
-/* Title Animation (Bouncing Effect) */
-@keyframes funkyMove {
-    0% { transform: scale(1); color: #d2691e; }
-    50% { transform: scale(1.1); color: #ff5733; }
-    100% { transform: scale(1); color: #d2691e; }
-}
-
-/* Working Hours Styling */
 .working-hours {
-    font-size: 18px;
-    color: #fff;
-    background-color: #b45f06;
-    padding: 10px;
-    border-radius: 5px;
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    color: var(--light-cream);
+    background-color: var(--dark-brown);
+    padding: 10px 20px;
+    border-radius: 8px;
     display: inline-block;
-    margin-top: 10px;
+    font-weight: 700;
+    box-shadow: 0 4px 8px var(--shadow-color);
 }
 
-/* Navigation Buttons (Bigger & More Bakery-Styled) */
+/* Menu Buttons Section (Themed) */
 .menu-selection {
-    margin: 20px 0;
+    margin: 30px 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
 .menu-btn {
-    display: inline-block;
-    margin: 15px;
-    padding: 18px 35px;
-    background: linear-gradient(45deg, #d2691e, #ff9248);
-    color: white;
+    padding: 20px 40px; /* Bigger buttons */
+    background-color: var(--dark-brown);
+    color: var(--light-cream);
     text-decoration: none;
     border-radius: 12px;
-    font-size: 22px;
-    font-weight: bold;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    font-size: clamp(1.1rem, 4vw, 1.4rem);
+    font-weight: 700;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 2px solid var(--dark-brown);
+    box-shadow: 0 5px 15px var(--shadow-color);
 }
 
-/* Funky Hover Effect on Buttons */
 .menu-btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+    transform: translateY(-5px);
+    background-color: var(--medium-brown);
+    border-color: var(--medium-brown);
+    box-shadow: 0 8px 20px var(--shadow-color);
 }
 
-/* Image Styling (Smaller to Give Space for Buttons) */
-.random-images img {
-    width: 80%; /* Full width on mobile */
-    max-width: 300px; /* Keeps it from being too big on large screens */
-    margin: 10px;
+.menu-btn:active {
+    transform: translateY(0px);
+    box-shadow: 0 4px 8px var(--shadow-color);
+}
+
+/* Image Gallery Styling */
+.gallery-container {
+    position: relative;
+    max-width: 600px;
+    margin: 20px auto;
     border-radius: 15px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    box-shadow: 0px 8px 20px var(--shadow-color);
+    border: 3px solid white; /* Adds a nice frame */
 }
+.gallery-slide { display: none; }
+.gallery-slide img { width: 100%; vertical-align: middle; }
+.fade { animation: fade 1.5s; }
+@keyframes fade { from {opacity: .4} to {opacity: 1} }
 
-/* Footer */
+/* Footer (Themed) */
 footer {
-    margin-top: 20px;
-    padding: 15px;
-    background-color: #ffcc80;
-    border-radius: 10px;
+    margin-top: 40px;
+    padding: 20px;
+    background-color: transparent;
+    border-top: 2px solid var(--medium-brown);
     font-weight: bold;
+    color: var(--medium-brown);
 }
 
 /* 📱 Mobile Responsiveness */
 @media (max-width: 768px) {
-    .bakery-title {
-        font-size: 40px; /* Slightly smaller title for mobile */
+    .menu-selection {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
     }
-    
     .menu-btn {
-        font-size: 18px;
-        padding: 15px 30px;
-    }
-    
-    .random-images img {
-        width: 90%; /* Slightly bigger on mobile for better visibility */
+        width: 90%;
+        max-width: 400px;
     }
 }
