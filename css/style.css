@@ -1,166 +1,99 @@
-/* --- THEME OVERHAUL: Colors from your new logo --- */
+/* --- THEME COLORS --- */
 :root {
-    --bg-color: #eaddc2; /* Parchment from logo */
-    --dark-brown: #3d2b1f; /* Dark brown from logo text/arch */
-    --medium-brown: #a57c52; /* Lighter brown for accents */
-    --light-cream: #f8f1e6; /* Cream color for text */
+    --bg-color: #eaddc2;
+    --dark-brown: #3d2b1f;
+    --medium-brown: #a57c52;
+    --light-cream: #f8f1e6;
+    --ember-glow: #ff8c00;
     --shadow-color: rgba(61, 43, 31, 0.2);
 }
 
 /* Reset & General Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 body {
-    background-color: var(--bg-color);
-    color: var(--dark-brown);
-    font-family: 'Cairo', sans-serif;
-    text-align: center;
-    background-image: url('https://www.transparenttextures.com/patterns/old-paper.png'); /* A more fitting texture */
+    background-color: var(--bg-color); color: var(--dark-brown);
+    font-family: 'Cairo', sans-serif; text-align: center;
+    background-image: url('https://www.transparenttextures.com/patterns/old-paper.png');
     overflow-x: hidden;
+    /* Required for 3D transform */
+    perspective: 1000px;
 }
 
 .container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 20px 15px; /* More padding on sides for mobile */
-    animation: fadeIn 1s ease-in-out;
+    max-width: 900px; margin: 0 auto; padding: 20px 15px;
+    /* --- CSS FOR THE "SAJ FLIP" --- */
+    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease;
+    transform-style: preserve-3d;
+}
+.container.is-flipping {
+    transform: rotateY(-180deg) scale(0.9);
+    opacity: 0;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-/* --- Preloader (Themed) --- */
-#preloader {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background-color: var(--bg-color);
-    z-index: 9999;
-    display: flex; justify-content: center; align-items: center;
-    transition: opacity 0.5s ease;
-}
-.spinner {
-    border: 8px solid var(--medium-brown); border-top: 8px solid var(--dark-brown);
-    border-radius: 50%; width: 60px; height: 60px;
-    animation: spin 1s linear infinite;
-}
+/* --- Preloader --- */
+#preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--bg-color); z-index: 9999; display: flex; justify-content: center; align-items: center; }
+.spinner { border: 8px solid var(--medium-brown); border-top: 8px solid var(--dark-brown); border-radius: 50%; width: 60px; height: 60px; animation: spin 1s linear infinite; }
 @keyframes spin { 100% { transform: rotate(360deg); } }
 
-/* --- EDITED: Logo Container --- */
-.logo-container {
-    padding: 10px 0 20px;
-}
+/* --- Logo Container (Much Smaller) --- */
+.logo-container { padding: 10px 0 20px; }
 .logo-container img {
-    max-width: 300px;
-    width: 80%; /* Scales nicely on mobile */
+    max-width: 180px; /* EDITED: Made logo much smaller */
+    width: 60%;
     height: auto;
-    border-radius: 8px; /* Optional: slightly rounded corners */
 }
 
-/* Header Styling (Themed) */
-header {
-    background-color: transparent; /* No background needed, blends with page */
-    padding: 0;
-    box-shadow: none;
-    margin-bottom: 25px;
-}
+/* --- Header & Title --- */
+header { margin-bottom: 25px; }
 
 .bakery-title {
-    font-weight: 900; /* Bolder to match logo font style */
-    font-size: clamp(2.8rem, 10vw, 4rem); /* Responsive font size */
-    color: var(--dark-brown);
-    text-shadow: 2px 2px 4px var(--shadow-color);
-    line-height: 1.2;
-    margin-bottom: 10px;
+    font-weight: 900; font-size: clamp(2.8rem, 12vw, 4.5rem);
+    line-height: 1.2; margin-bottom: 15px;
+    background: linear-gradient(to right, var(--dark-brown) 20%, var(--ember-glow) 40%, var(--light-cream) 50%, var(--ember-glow) 60%, var(--dark-brown) 80%);
+    background-size: 200% auto;
+    color: transparent; background-clip: text; -webkit-background-clip: text;
+    animation: shimmer 3.5s linear infinite;
+    /* FIXED: Added padding to prevent letters from being "eaten" */
+    padding-bottom: 10px;
 }
+@keyframes shimmer { to { background-position: -200% center; } }
 
-.working-hours {
-    font-size: clamp(1rem, 3vw, 1.2rem);
-    color: var(--light-cream);
-    background-color: var(--dark-brown);
-    padding: 10px 20px;
-    border-radius: 8px;
-    display: inline-block;
-    font-weight: 700;
-    box-shadow: 0 4px 8px var(--shadow-color);
-}
+.working-hours { font-size: clamp(1rem, 3vw, 1.2rem); color: var(--light-cream); background-color: var(--dark-brown); padding: 10px 20px; border-radius: 8px; display: inline-block; font-weight: 700; box-shadow: 0 4px 8px var(--shadow-color); }
 
-/* Menu Buttons Section (Themed) */
-.menu-selection {
-    margin: 30px 0;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
+/* --- Menu Buttons Section --- */
+.menu-selection { margin: 40px 0; }
 .menu-btn {
-    padding: 20px 40px; /* Bigger buttons */
-    background-color: var(--dark-brown);
-    color: var(--light-cream);
-    text-decoration: none;
-    border-radius: 12px;
-    font-size: clamp(1.1rem, 4vw, 1.4rem);
-    font-weight: 700;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    padding: 20px 40px; background-color: var(--dark-brown);
+    color: var(--light-cream); text-decoration: none; border-radius: 12px;
+    font-size: clamp(1.1rem, 4vw, 1.4rem); font-weight: 700;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     border: 2px solid var(--dark-brown);
     box-shadow: 0 5px 15px var(--shadow-color);
 }
+.menu-btn:hover { transform: translateY(-5px); box-shadow: 0 8px 25px var(--shadow-color), 0 0 15px var(--ember-glow); }
+.menu-btn:active { transform: translateY(0px); }
 
-.menu-btn:hover {
-    transform: translateY(-5px);
-    background-color: var(--medium-brown);
-    border-color: var(--medium-brown);
-    box-shadow: 0 8px 20px var(--shadow-color);
-}
-
-.menu-btn:active {
-    transform: translateY(0px);
-    box-shadow: 0 4px 8px var(--shadow-color);
-}
-
-/* Image Gallery Styling */
-.gallery-container {
-    position: relative;
-    max-width: 600px;
-    margin: 20px auto;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0px 8px 20px var(--shadow-color);
-    border: 3px solid white; /* Adds a nice frame */
-}
-.gallery-slide { display: none; }
+/* --- Image Gallery with Ken Burns Effect --- */
+.gallery-container { position: relative; max-width: 600px; margin: 20px auto; border-radius: 15px; overflow: hidden; box-shadow: 0px 8px 20px var(--shadow-color); border: 3px solid white; }
+.gallery-slide { display: none; animation: ken-burns-fade 5s infinite; }
 .gallery-slide img { width: 100%; vertical-align: middle; }
-.fade { animation: fade 1.5s; }
-@keyframes fade { from {opacity: .4} to {opacity: 1} }
-
-/* Footer (Themed) */
-footer {
-    margin-top: 40px;
-    padding: 20px;
-    background-color: transparent;
-    border-top: 2px solid var(--medium-brown);
-    font-weight: bold;
-    color: var(--medium-brown);
+@keyframes ken-burns-fade {
+    0% { opacity: 0; transform: scale(1.05) rotate(1deg); }
+    20% { opacity: 1; } 80% { opacity: 1; }
+    100% { opacity: 0; transform: scale(1) rotate(-1deg); }
 }
 
-/* 📱 Mobile Responsiveness */
+/* --- FADE IN ON SCROLL --- */
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+.reveal.reveal-delayed { transition-delay: 0.15s; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* --- Footer --- */
+footer { margin-top: 40px; padding: 20px; border-top: 2px solid var(--medium-brown); font-weight: bold; color: var(--medium-brown); }
+
+/* --- Mobile Responsiveness --- */
 @media (max-width: 768px) {
-    .menu-selection {
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
-    }
-    .menu-btn {
-        width: 90%;
-        max-width: 400px;
-    }
+    .menu-selection { flex-direction: column; align-items: center; gap: 15px; }
+    .menu-btn { width: 90%; max-width: 400px; }
 }
