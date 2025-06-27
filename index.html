@@ -3,13 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- EDITED: Title changed -->
     <title>كلو عالصاج</title>
 
-    <!-- CUTE ADDITION: New Flatbread Favicon! -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🫓</text></svg>">
     
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
@@ -17,75 +14,100 @@
 </head>
 <body>
 
-    <!-- Preloader -->
     <div id="preloader">
         <div class="spinner"></div>
     </div>
 
     <div class="container">
 
-        <!-- EDITED: Logo added here -->
-        <div class="logo-container">
+        <div class="logo-container reveal">
             <img src="images/logo.JPG" alt="كلو عالصاج لوغو">
         </div>
 
         <header>
-            <!-- EDITED: Title changed -->
             <h1 class="bakery-title">كلو عالصاج</h1>
-            <div class="working-hours-container">
-                <!-- EDITED: Working hours updated -->
+            <div class="working-hours-container reveal reveal-delayed">
                 <p class="working-hours">ساعات العمل: من 7:00 صباحًا حتى 12:00 ظهرًا</p>
             </div>
         </header>
         
-        <section class="menu-selection">
+        <section class="menu-selection reveal reveal-delayed">
+            <!-- The JS will now target these buttons for the flip animation -->
             <a href="food.pdf" class="menu-btn" target="_blank">📜 قائمة الصاج</a>
             <a href="juice.pdf" class="menu-btn" target="_blank">🍹 قائمة المشروبات</a>
-            <!-- EDITED: Pizza button removed -->
         </section>
 
-        <!-- Interactive Image Gallery -->
-        <section class="gallery-container">
-            <div class="gallery-slide fade">
+        <section class="gallery-container reveal reveal-delayed">
+            <div class="gallery-slide">
                 <img src="images/1.jpg" alt="Freshly baked goods">
             </div>
-            <div class="gallery-slide fade">
+            <div class="gallery-slide">
                 <img src="images/2.jpg" alt="A selection of our delicious products">
             </div>
-            <div class="gallery-slide fade">
+            <div class="gallery-slide">
                 <img src="images/3.jpg" alt="Artisanal bread">
             </div>
         </section>
 
-        <footer>
-            <!-- EDITED: Copyright text updated -->
+        <footer class="reveal">
             <p>© <span id="current-year"></span> كلو عالصاج - جميع الحقوق محفوظة</p>
         </footer>
     </div>
 
-    <!-- JavaScript (No changes needed here from last version) -->
     <script>
-        window.addEventListener('load', function() {
-            const preloader = document.getElementById('preloader');
-            preloader.style.opacity = '0';
-            setTimeout(() => { preloader.style.display = 'none'; }, 500);
+        window.addEventListener('load', () => {
+            document.getElementById('preloader').style.display = 'none';
         });
 
-        let slideIndex = 1;
-        showSlides(slideIndex);
-        function plusSlides(n) { showSlides(slideIndex += n); }
-        function showSlides(n) {
+        // --- THE "SAJ FLIP" ANIMATION LOGIC ---
+        const menuButtons = document.querySelectorAll('.menu-btn');
+        const mainContainer = document.querySelector('.container');
+
+        menuButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                // Prevent the link from opening immediately
+                e.preventDefault();
+                const destination = this.href;
+
+                // Add the flipping class to the container
+                mainContainer.classList.add('is-flipping');
+
+                // After the animation finishes, go to the link
+                setTimeout(() => {
+                    window.open(destination, '_blank');
+                    // Remove the class so the page is normal if the user comes back
+                    mainContainer.classList.remove('is-flipping');
+                }, 800); // This duration must match the CSS transition duration
+            });
+        });
+
+
+        // --- Image Slider Logic ---
+        let slideIndex = 0;
+        showSlides();
+        function showSlides() {
             let i;
             let slides = document.getElementsByClassName("gallery-slide");
-            if (n > slides.length) {slideIndex = 1}
-            if (n < 1) {slideIndex = slides.length}
             for (i = 0; i < slides.length; i++) {
                 slides[i].style.display = "none";
             }
+            slideIndex++;
+            if (slideIndex > slides.length) {slideIndex = 1}
             slides[slideIndex-1].style.display = "block";
+            setTimeout(showSlides, 5000);
         }
-        setInterval(() => { plusSlides(1); }, 4000);
 
+        // --- Animate on Scroll Logic ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+        // --- Dynamic Copyright Year ---
         document.getElementById('current-year').textContent = new Date().getFullYear();
     </script>
 </body>
