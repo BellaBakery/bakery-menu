@@ -1,32 +1,92 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bella Bakery</title>
+    <!-- EDITED: Title changed -->
+    <title>كلو عالصاج</title>
+
+    <!-- CUTE ADDITION: New Flatbread Favicon! -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🫓</text></svg>">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <header>
-        <h1 class="bakery-title">Bella Bakery</h1>
-        <p class="working-hours">ساعات العمل: من 7:00 صباحًا حتى 12:00 ظهرًا، ومن 6:30 مساءً حتى 12:00 منتصف الليل</p>
-	<p class="working-hours">🍞ساعات العمل خلال شهر رمضان المبارك: من الساعة 12 منتصف الليل حتى 3:30 فجرا🌙</p>
-    </header>
-    
-    <section class="menu-selection">
-        <a href="food.pdf" class="menu-btn" target="_blank">📜قائمة الصاج</a>
-        <a href="juice.pdf" class="menu-btn" target="_blank">🍹 قائمة المشروبات</a>
-		<a href="" class="menu-btn" target="_blank">📜قائمة المناقيش والبيتزا (قريباً)</a>
-    </section>
 
-    <section class="random-images">
-        <img src="images/1.jpg" alt="Bakery Image">
-        <img src="images/2.jpg" alt="Bakery Image">
-        <img src="images/3.jpg" alt="Bakery Image">
-    </section>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="spinner"></div>
+    </div>
 
-    <footer>
-        <p>© 2025 Bella Bakery - جميع الحقوق محفوظة</p>
-    </footer>
+    <div class="container">
+
+        <!-- EDITED: Logo added here -->
+        <div class="logo-container">
+            <img src="images/logo.JPG" alt="كلو عالصاج لوغو">
+        </div>
+
+        <header>
+            <!-- EDITED: Title changed -->
+            <h1 class="bakery-title">كلو عالصاج</h1>
+            <div class="working-hours-container">
+                <!-- EDITED: Working hours updated -->
+                <p class="working-hours">ساعات العمل: من 7:00 صباحًا حتى 12:00 ظهرًا</p>
+            </div>
+        </header>
+        
+        <section class="menu-selection">
+            <a href="food.pdf" class="menu-btn" target="_blank">📜 قائمة الصاج</a>
+            <a href="juice.pdf" class="menu-btn" target="_blank">🍹 قائمة المشروبات</a>
+            <!-- EDITED: Pizza button removed -->
+        </section>
+
+        <!-- Interactive Image Gallery -->
+        <section class="gallery-container">
+            <div class="gallery-slide fade">
+                <img src="images/1.jpg" alt="Freshly baked goods">
+            </div>
+            <div class="gallery-slide fade">
+                <img src="images/2.jpg" alt="A selection of our delicious products">
+            </div>
+            <div class="gallery-slide fade">
+                <img src="images/3.jpg" alt="Artisanal bread">
+            </div>
+        </section>
+
+        <footer>
+            <!-- EDITED: Copyright text updated -->
+            <p>© <span id="current-year"></span> كلو عالصاج - جميع الحقوق محفوظة</p>
+        </footer>
+    </div>
+
+    <!-- JavaScript (No changes needed here from last version) -->
+    <script>
+        window.addEventListener('load', function() {
+            const preloader = document.getElementById('preloader');
+            preloader.style.opacity = '0';
+            setTimeout(() => { preloader.style.display = 'none'; }, 500);
+        });
+
+        let slideIndex = 1;
+        showSlides(slideIndex);
+        function plusSlides(n) { showSlides(slideIndex += n); }
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("gallery-slide");
+            if (n > slides.length) {slideIndex = 1}
+            if (n < 1) {slideIndex = slides.length}
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slides[slideIndex-1].style.display = "block";
+        }
+        setInterval(() => { plusSlides(1); }, 4000);
+
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
 </body>
 </html>
