@@ -34,12 +34,9 @@ body {
 .spinner { border: 8px solid var(--medium-brown); border-top: 8px solid var(--dark-brown); border-radius: 50%; width: 60px; height: 60px; animation: spin 1s linear infinite; }
 @keyframes spin { 100% { transform: rotate(360deg); } }
 
-/* --- Logo Container (Much Smaller) --- */
+/* --- Logo Container --- */
 .logo-container { padding: 10px 0 20px; }
-.logo-container img {
-    max-width: 180px; width: 60%;
-    height: auto;
-}
+.logo-container img { max-width: 180px; width: 60%; height: auto; }
 
 /* --- Header & Title --- */
 header { margin-bottom: 25px; }
@@ -56,14 +53,14 @@ header { margin-bottom: 25px; }
 
 .working-hours { font-size: clamp(1rem, 3vw, 1.2rem); color: var(--light-cream); background-color: var(--dark-brown); padding: 10px 20px; border-radius: 8px; display: inline-block; font-weight: 700; box-shadow: 0 4px 8px var(--shadow-color); }
 
-/* --- Menu Buttons Section --- */
+/* --- Menu Buttons Section (DEFINITIVE MOBILE FIX) --- */
 .menu-selection {
     margin: 40px 0;
     display: flex;
-    justify-content: center;
-    /* EDITED: Changed flex-wrap to prevent any chance of weird wrapping */
-    flex-wrap: nowrap;
-    gap: 25px; /* A bit more space on desktop */
+    /* THIS IS THE FIX: Default state is now the stacked mobile view */
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; /* This is now the vertical gap for mobile */
 }
 .menu-btn {
     padding: 20px 40px; background-color: var(--dark-brown);
@@ -72,21 +69,21 @@ header { margin-bottom: 25px; }
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border: 2px solid var(--dark-brown);
     box-shadow: 0 5px 15px var(--shadow-color);
+    /* THIS IS THE FIX: Buttons are wide by default for the mobile view */
+    width: 90%;
+    max-width: 450px;
+    text-align: center;
 }
 .menu-btn:hover { transform: translateY(-5px); box-shadow: 0 8px 25px var(--shadow-color), 0 0 15px var(--ember-glow); }
 .menu-btn:active { transform: translateY(0px); }
 
-/* --- Image Gallery with Ken Burns Effect --- */
+/* --- Image Gallery --- */
 .gallery-container { position: relative; max-width: 600px; margin: 20px auto; border-radius: 15px; overflow: hidden; box-shadow: 0px 8px 20px var(--shadow-color); border: 3px solid white; }
 .gallery-slide { display: none; animation: ken-burns-fade 5s infinite; }
 .gallery-slide img { width: 100%; vertical-align: middle; }
-@keyframes ken-burns-fade {
-    0% { opacity: 0; transform: scale(1.05) rotate(1deg); }
-    20% { opacity: 1; } 80% { opacity: 1; }
-    100% { opacity: 0; transform: scale(1) rotate(-1deg); }
-}
+@keyframes ken-burns-fade { 0% { opacity: 0; transform: scale(1.05) rotate(1deg); } 20% { opacity: 1; } 80% { opacity: 1; } 100% { opacity: 0; transform: scale(1) rotate(-1deg); } }
 
-/* --- FADE IN ON SCROLL --- */
+/* --- Animate on Scroll --- */
 .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
 .reveal.reveal-delayed { transition-delay: 0.15s; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
@@ -94,20 +91,18 @@ header { margin-bottom: 25px; }
 /* --- Footer --- */
 footer { margin-top: 40px; padding: 20px; border-top: 2px solid var(--medium-brown); font-weight: bold; color: var(--medium-brown); }
 
-/* --- EDITED: MOBILE PHONE FIX --- */
-/* This rule now applies to tablets and all phones, ensuring no overlap */
-@media (max-width: 800px) {
+/* --- DESKTOP LAYOUT OVERRIDE --- */
+/* This rule ONLY applies to screens wider than 600px */
+@media (min-width: 600px) {
     .menu-selection {
-        /* This is the key fix: stack the items vertically */
-        flex-direction: column;
-        align-items: center;
-        gap: 20px; /* Vertical gap between buttons */
+        /* On larger screens, they go side-by-side */
+        flex-direction: row;
+        justify-content: center;
+        gap: 25px; /* Horizontal gap */
     }
 
     .menu-btn {
-        /* Ensure buttons take up a good amount of width but not 100% */
-        width: 90%;
-        max-width: 450px; /* Prevent them from being too wide on tablets */
-        text-align: center;
+        /* On larger screens, the width is determined by its content */
+        width: auto;
     }
 }
